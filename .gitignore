@@ -4,3 +4,6 @@
 
 # bundler
 vendor
+
+logs
+!logs/.keep

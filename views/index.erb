@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>askme</title>
+</head>
+<body>
+  <h1>askme</h1>
+
+  <% if @user %>
+    <p>Hello <%= @user.username %> / <a href="/logout">Logout</a></p>
+  <% end %>
+
+  <a href="/auth/twitter">Login Twitter</a>
+</body>
+</html>
