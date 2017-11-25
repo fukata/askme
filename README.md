@@ -22,3 +22,17 @@ sarahah.comのクローンをreactjsを使って作成する勉強のための�
   - reactjs
 - ネイティブアプリ(ios,android)
   - react-native
+
+## サーバーサイド
+
+### サーバー起動
+
+```
+bundle exec ruby app/app.rb
+```
+
+### テスト
+
+```
+bundle exec rspec app/spec
+```
