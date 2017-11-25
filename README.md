@@ -13,3 +13,12 @@ sarahah.comのクローンをreactjsを使って作成する勉強のための�
     - 質問のシェア
 - 未登録ユーザー機能
   - 質問投稿
+
+## 構成
+
+- サーバーサイド(web,api)
+  - sinatra
+- フロントエンド
+  - reactjs
+- ネイティブアプリ(ios,android)
+  - react-native
