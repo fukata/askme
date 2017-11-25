@@ -42,6 +42,7 @@ get "/auth/:provider/callback" do
   logger.info auth.inspect
   user = User.where(twitter_account_id: auth.uid)
     .first_or_initialize(twitter_account_id: auth.uid, username: auth.info.nickname)
+  user.profile_image_url = auth.info.image
   user.last_logined_at = Time.current
   user.save!
 
@@ -98,10 +99,28 @@ get '/api/config' do
   if @user
     data[:user] = {
       username: @user.username,
+      profile_image: @user.profile_image_url,
     }
   end
 
   { data: data }.to_json
+end
+
+get '/api/users/:username' do |username|
+  content_type :json
+
+  user = User.where(username: username, deleted_at: nil).first
+  if user
+    {
+      status: 'successful',
+      user: {
+        username: user.username,
+        profile_image: user.profile_image_url.gsub(/normal\.jpg/, '400x400.jpg'), # デフォルトのサイズから400x400の画像URLに変換
+      },
+    }.to_json
+  else
+    { status: 'failure' }.to_json
+  end
 end
 
 post '/api/questions' do

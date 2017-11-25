@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import Home from './Home';
+import QuestionNew from './QuestionNew';
 import logo from './logo.svg';
 import './App.css';
 
@@ -24,11 +27,17 @@ class App extends Component {
     var login_form = null;
     if (this.state.config && this.state.config.user) {
       login_form = (
-        <p>Hello, {this.state.config.user.username}, <a href={process.env.REACT_APP_API_ENDPOINT + "/logout"}>Logout</a></p>
+        <div>
+          <p>Hello, {this.state.config.user.username}, <a href={process.env.REACT_APP_API_ENDPOINT + "/logout"}>Logout</a></p>
+          <p>Your question form url is below</p>
+          <p><a href={'/q/' + this.state.config.user.username} target="_blank">Question Form</a></p>
+        </div>
       );
     } else {
       login_form = (
-        <p><a href={process.env.REACT_APP_API_ENDPOINT + "/auth/twitter"}>Login by Twitter</a></p>
+        <div>
+          <p><a href={process.env.REACT_APP_API_ENDPOINT + "/auth/twitter"}>Login by Twitter</a></p>
+        </div>
       );
     };
 
@@ -42,6 +51,9 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         { login_form }
+
+        <Route exact path="/" component={Home} />
+        <Route path="/q/:username" component={QuestionNew} />
       </div>
     );
   }

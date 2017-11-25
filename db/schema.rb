@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20171125134512) do
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "username", null: false
     t.string "twitter_account_id"
+    t.string "profile_image_url"
     t.datetime "last_logined_at"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
