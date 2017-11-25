@@ -1,6 +1,7 @@
 require 'logger'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sinatra/cross_origin'
 require 'omniauth'
 require 'omniauth-twitter'
 require 'json'
@@ -12,6 +13,7 @@ Dir[File.dirname(__FILE__)+"/models/*.rb"].each {|file| require file }
 logger = Logger.new('log/app.log')
 
 enable :sessions
+enable :cross_origin
 
 ##############################################
 # Configuration
@@ -42,6 +44,21 @@ get "/auth/:provider/callback" do
   }
   logger.debug "logined user=#{session[:user]}"
   redirect "/"
+end
+
+##############################################
+# Hook
+##############################################
+before do
+  response.headers['Access-Control-Allow-Origin'] = '*'
+end
+
+# CORS
+options "*" do
+  response.headers["Allow"] = "GET, POST, OPTIONS"
+  response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept"
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  200
 end
 
 ##############################################
