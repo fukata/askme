@@ -12,8 +12,15 @@ Dir[File.dirname(__FILE__)+"/models/*.rb"].each {|file| require file }
 
 logger = Logger.new('log/app.log')
 
-enable :sessions
+use Rack::Session::Cookie, :key => 'rack.session',
+                           :domain => 'localhost',
+                           :path => '/',
+                           :expire_after => 2592000, # In seconds
+                           :secret => 'some_secret'
+
 enable :cross_origin
+
+WEB_ENDPOINT = ENV.fetch('WEB_ENDPOINT'){'http://localhost:3000'}
 
 ##############################################
 # Configuration
@@ -43,21 +50,26 @@ get "/auth/:provider/callback" do
     username: user.username,
   }
   logger.debug "logined user=#{session[:user]}"
-  redirect "/"
+  redirect WEB_ENDPOINT
+end
+
+get "/auth/failure" do
+  "FAILED"
 end
 
 ##############################################
 # Hook
 ##############################################
 before do
-  response.headers['Access-Control-Allow-Origin'] = '*'
+  response.headers['Access-Control-Allow-Origin'] = "http://localhost:3000"
+  response.headers["Access-Control-Allow-Credentials"] = "true"
 end
 
 # CORS
 options "*" do
   response.headers["Allow"] = "GET, POST, OPTIONS"
   response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept"
-  response.headers["Access-Control-Allow-Origin"] = "*"
+  response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
   200
 end
 
@@ -70,13 +82,28 @@ get '/' do
 end
 
 get '/logout' do
-  session.delete :user
-  redirect '/'
+  session[:user] = nil
+  redirect WEB_ENDPOINT
 end
 
 ##############################################
 # API
 ##############################################
+get '/api/config' do
+  content_type :json
+  data = {
+    env: ENV.fetch('RACK_ENV'){'development'},
+  }
+  @user = User.where(id: session[:user][:id], deleted_at: nil).first if session[:user]
+  if @user
+    data[:user] = {
+      username: @user.username,
+    }
+  end
+
+  { data: data }.to_json
+end
+
 post '/api/questions' do
   content_type :json
   begin
