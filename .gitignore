@@ -5,5 +5,5 @@
 # bundler
 vendor
 
-logs
-!logs/.keep
+log
+!log/.keep

@@ -3,11 +3,17 @@ source "https://rubygems.org"
 
 gem "rake"
 
+gem "json"
+
 gem "sinatra"
 gem "sinatra-contrib"
 
-gem "rack-test"
-gem "rspec"
+group :development, :test do
+  gem "rack-test"
+  gem "rspec"
+  gem "factory_bot"
+  gem "database_cleaner"
+end
 
 gem "omniauth"
 gem "omniauth-twitter"

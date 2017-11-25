@@ -3,13 +3,13 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'omniauth'
 require 'omniauth-twitter'
-
+require 'json'
 require 'active_record'
 require 'mysql2'
-require './models/user.rb'
-require './models/question.rb'
 
-logger = Logger.new('logs/app.log')
+Dir[File.dirname(__FILE__)+"/models/*.rb"].each {|file| require file }
+
+logger = Logger.new('log/app.log')
 
 enable :sessions
 
@@ -18,7 +18,6 @@ enable :sessions
 ##############################################
 
 # database
-logger.debug "RACK_ENV=#{ENV.fetch('RACK_ENV'){'development'}}"
 ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
 ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[ENV.fetch('RACK_ENV'){'development'}])
 
@@ -61,10 +60,19 @@ end
 ##############################################
 # API
 ##############################################
-post '/api/users' do
-  '/api/users'
-end
-
 post '/api/questions' do
-  '/api/questions'
+  content_type :json
+  begin
+    logger.info "create question. to=#{params[:to_username]} commnet=#{params[:comment]}"
+    user = User.where(username: params[:to_username], deleted_at: nil).first
+    if user
+      logger.debug "create question. to=#{user.id}"
+      user.questions.build(comment: params[:comment])
+      user.save!
+    end
+
+    { status: "successful" }.to_json
+  rescue => e
+    { status: "failed" }.to_json
+  end
 end

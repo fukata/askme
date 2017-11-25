@@ -9,6 +9,7 @@ class CreateAskme < ActiveRecord::Migration[5.1]
     end
 
     create_table :questions do |t|
+      t.integer :user_id, null: false
       t.string :comment, null: false, limit: 1024
       t.datetime :deleted_at
       t.timestamps
