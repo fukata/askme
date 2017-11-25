@@ -2,7 +2,7 @@
   "name": "askme",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://fukata.github.io/askme/web_app/",
+  "homepage": "http://fukata.github.io/askme/",
   "dependencies": {
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
