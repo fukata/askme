@@ -21,9 +21,9 @@ export default class QuestionNew extends Component {
     if (this.state.user) {
       return (
         <div id="question-form">
-          <p><img class="profile-image" src={this.state.user.profile_image} alt="profile"/></p>
+          <p><img className="profile-image" src={this.state.user.profile_image} alt="profile"/></p>
           <p>{this.state.user.username}</p>
-          <p><textarea placeholder="Please any comment(maximum 1000 characters)" maxlength="1000"></textarea></p>
+          <p><textarea placeholder="Please any comment(maximum 1000 characters)" maxLength="1000"></textarea></p>
           <p><button>Submit</button></p>
         </div>
       );
