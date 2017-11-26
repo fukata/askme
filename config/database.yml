@@ -20,4 +20,7 @@ test:
 
 production:
   <<: *default
-  database: askme
+  username: b12e529586e840
+  password: 7defc031
+  host: us-cdbr-iron-east-05.cleardb.net
+  database: heroku_934acfc999b2285
