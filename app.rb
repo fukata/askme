@@ -13,7 +13,6 @@ Dir[File.dirname(__FILE__)+"/models/*.rb"].each {|file| require file }
 logger = Logger.new('log/app.log')
 
 use Rack::Session::Cookie, :key => 'rack.session',
-                           :domain => 'localhost',
                            :path => '/',
                            :expire_after => 2592000, # In seconds
                            :secret => 'some_secret'
