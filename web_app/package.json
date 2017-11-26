@@ -2,8 +2,7 @@
   "name": "askme",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://fukata.github.io",
-  "PUBLIC_URL": "hogehoge",
+  "homepage": "http://fukata.github.io/askme/",
   "dependencies": {
     "dotenv": "^4.0.0",
     "react": "^16.1.1",
