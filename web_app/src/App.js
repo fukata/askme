@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import Home from './Home';
 import QuestionNew from './QuestionNew';
 import logo from './logo.svg';
@@ -30,7 +30,7 @@ class App extends Component {
         <div>
           <p>Hello, {this.state.config.user.username}, <a href={process.env.REACT_APP_API_ENDPOINT + "/logout"}>Logout</a></p>
           <p>Your question form url is below</p>
-          <p><a href={'/q/' + this.state.config.user.username} target="_blank">Question Form</a></p>
+          <p><Link to={`/q/${this.state.config.user.username}`}>Question Form</Link></p>
         </div>
       );
     } else {
