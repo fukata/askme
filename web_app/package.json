@@ -2,7 +2,7 @@
   "name": "askme",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://fukata.github.io/askme/",
+  "homepage": "http://fukata.github.io",
   "PUBLIC_URL": "hogehoge",
   "dependencies": {
     "dotenv": "^4.0.0",
