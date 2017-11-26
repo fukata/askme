@@ -1,0 +1,8 @@
+machine:
+  timezone: GMT
+  ruby:
+    version: 2.4.2
+
+database:
+  override:
+    - export export RACK_ENV=test; bundle exec rake db:migrate:reset --trace
