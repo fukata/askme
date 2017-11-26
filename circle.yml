@@ -6,3 +6,10 @@ machine:
 database:
   override:
     - export export RACK_ENV=test; bundle exec rake db:migrate:reset --trace
+
+deployment:
+  release:
+    branch: master
+    commands:
+      - sh misc/deploy-production.sh:
+          timeout: 1500
