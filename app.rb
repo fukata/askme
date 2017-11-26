@@ -61,7 +61,7 @@ end
 # Hook
 ##############################################
 before do
-  response.headers['Access-Control-Allow-Origin'] = "http://localhost:3000"
+  response.headers['Access-Control-Allow-Origin'] = WEB_ENDPOINT
   response.headers["Access-Control-Allow-Credentials"] = "true"
 end
 
@@ -69,7 +69,7 @@ end
 options "*" do
   response.headers["Allow"] = "GET, POST, OPTIONS"
   response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept"
-  response.headers["Access-Control-Allow-Origin"] = "http://localhost:3000"
+  response.headers["Access-Control-Allow-Origin"] = WEB_ENDPOINT
   200
 end
 
