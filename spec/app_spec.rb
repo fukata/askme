@@ -10,14 +10,14 @@ describe "app" do
 
   describe "/api/questions" do
     describe "create" do
-      subject { post "/api/questions/#{username}", params, sessions }
+      subject { post "/api/questions/#{username}", raw_body, sessions }
       context "successful" do
         let(:user) { FactoryBot.create(:user) }
         let(:sessions) { {user: {id: user.id, username: user.username}} }
         let(:username) { user.username }
-        let(:params) { {
+        let(:raw_body) { {
           comment: "hogehoge",
-        } }
+        }.to_json }
         it do
           subject
           api_data = JSON.parse(last_response.body, symbolize_names: true)
@@ -34,9 +34,9 @@ describe "app" do
         let(:user) { FactoryBot.create(:user) }
         let(:sessions) { {user: {id: user.id, username: user.username}} }
         let(:username) { user.username }
-        let(:params) { {
+        let(:raw_body) { {
           comment: "",
-        } }
+        }.to_json }
         it do
           subject
           api_data = JSON.parse(last_response.body, symbolize_names: true)
