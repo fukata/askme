@@ -30,7 +30,7 @@ class App extends Component {
         <div>
           <p>Hello, {this.state.config.user.username}, <a href={process.env.REACT_APP_API_ENDPOINT + "/logout"}>Logout</a></p>
           <p>Your question form url is below</p>
-          <p><a href={'/q/' + this.state.config.user.username} target="_blank">Question Form</a></p>
+          <p><a href={'%PUBLIC_URL%/q/' + this.state.config.user.username} target="_blank">Question Form</a></p>
         </div>
       );
     } else {
