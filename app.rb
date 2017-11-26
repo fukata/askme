@@ -60,8 +60,9 @@ end
 ##############################################
 # Hook
 ##############################################
+ALLOW_ORIGIN = ENV.fetch('ALLOW_ORIGIN'){'http://localhost:3000'}
 before do
-  response.headers['Access-Control-Allow-Origin'] = WEB_ENDPOINT
+  response.headers['Access-Control-Allow-Origin'] = ALLOW_ORIGIN
   response.headers["Access-Control-Allow-Credentials"] = "true"
 end
 
@@ -69,7 +70,7 @@ end
 options "*" do
   response.headers["Allow"] = "GET, POST, OPTIONS"
   response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept"
-  response.headers["Access-Control-Allow-Origin"] = WEB_ENDPOINT
+  response.headers["Access-Control-Allow-Origin"] = ALLOW_ORIGIN
   200
 end
 
