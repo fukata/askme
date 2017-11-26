@@ -20,7 +20,7 @@ test:
 
 production:
   <<: *default
-  username: b12e529586e840
-  password: 7defc031
+  username: b41f6157db40bd
+  password: 40dac1cb
   host: us-cdbr-iron-east-05.cleardb.net
-  database: heroku_934acfc999b2285
+  database: heroku_b6a0c4a452efd3a
