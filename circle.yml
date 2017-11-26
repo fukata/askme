@@ -1,5 +1,9 @@
 machine:
   timezone: GMT
+  node:
+    version: 9.2.0
+  npm:
+    version: 5.5.1
   ruby:
     version: 2.4.2
 
