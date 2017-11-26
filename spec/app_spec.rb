@@ -10,12 +10,12 @@ describe "app" do
 
   describe "/api/questions" do
     describe "create" do
-      subject { post '/api/questions', params, sessions }
+      subject { post "/api/questions/#{username}", params, sessions }
       context "successful" do
         let(:user) { FactoryBot.create(:user) }
         let(:sessions) { {user: {id: user.id, username: user.username}} }
+        let(:username) { user.username }
         let(:params) { {
-          to_username: user.username,
           comment: "hogehoge",
         } }
         it do
@@ -33,8 +33,8 @@ describe "app" do
       context "failed" do
         let(:user) { FactoryBot.create(:user) }
         let(:sessions) { {user: {id: user.id, username: user.username}} }
+        let(:username) { user.username }
         let(:params) { {
-          to_username: user.username,
           comment: "",
         } }
         it do

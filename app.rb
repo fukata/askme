@@ -20,7 +20,7 @@ use Rack::Session::Cookie, :key => 'rack.session',
 
 enable :cross_origin
 
-WEB_ENDPOINT = ENV.fetch('WEB_ENDPOINT'){'http://localhost:3000'}
+WEB_ENDPOINT = ENV.fetch('WEB_ENDPOINT'){'http://localhost:3000'} unless defined?(WEB_ENDPOINT)
 
 ##############################################
 # Configuration
@@ -119,23 +119,26 @@ get '/api/users/:username' do |username|
       },
     }.to_json
   else
+    status 404
     { status: 'failure' }.to_json
   end
 end
 
-post '/api/questions' do
+post '/api/questions/:username' do |username|
   content_type :json
   begin
-    logger.info "create question. to=#{params[:to_username]} commnet=#{params[:comment]}"
-    user = User.where(username: params[:to_username], deleted_at: nil).first
+    params = JSON.parse(request.body.read, symbolize_names: true)
+    logger.info "create question. to=#{username} comment=#{params[:comment]}, params=#{params}"
+    user = User.where(username: username, deleted_at: nil).first
     if user
       logger.debug "create question. to=#{user.id}"
-      user.questions.build(comment: params[:comment])
-      user.save!
+      Question.create!(user: user, comment: params[:comment])
     end
 
     { status: "successful" }.to_json
   rescue => e
+    logger.error e
+    status 500
     { status: "failed" }.to_json
   end
 end
