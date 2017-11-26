@@ -28,11 +28,11 @@ sarahah.comのクローンをreactjsを使って作成する勉強のための�
 ### サーバー起動
 
 ```
-bundle exec ruby app/app.rb
+bundle exec ruby app.rb
 ```
 
 ### テスト
 
 ```
-bundle exec rspec app/spec
+bundle exec rspec spec
 ```
